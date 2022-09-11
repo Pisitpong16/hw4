@@ -7,7 +7,7 @@
 <%x = 0 %>
 <%while x < @amount%>
   <%= form.text_field :subject, name: "subject[]" %>
-  <%= form.text_field :score, name: "score[]" %><br>
+  <%= form.number_field :score, name: "score[]" %><br>
   <%x += 1%>
 <%end%>
   <%= form.submit "Submit" %>

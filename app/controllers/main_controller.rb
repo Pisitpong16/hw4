@@ -48,8 +48,17 @@ class MainController < ApplicationController
    
    while @x < @score.length
     @total=@total+@score[@x].to_i  
-    @x+=1
     
+    #hw5
+    @allSubjects = Subject.where(name: @subject[@x])
+    if(@allSubjects.empty?)
+      Subject.create(name: @subject[@x], score: @score[@x])
+    else
+      for s in @allSubjects
+        s.update(score:@score[@x])
+      end
+    end 
+    @x+=1  
     
    end
    @y=1
@@ -68,9 +77,39 @@ class MainController < ApplicationController
        
     
     end
+
+
+     
   end
 
   def test3
     
+  end
+
+  def test4
+    @allSubjects = Subject.all
+  end
+
+  def delete
+    @id= params[:id].to_i
+    s=Subject.find_by(id: @id)
+    s.destroy
+    redirect_to("/score/list")
+  end
+
+  def edit
+    @id= params[:id].to_i
+    @s= Subject.find_by(id: @id)
+    @name = @s.name
+    @score = @s.score
+  end
+
+  def save
+    @id = params[:id].to_i
+    @name = params[:name]
+    @score = params[:score].to_i
+    s=Subject.find_by(id: @id)
+    s.update(name: @name, score: @score)
+    redirect_to('/score/list')
   end
 end
