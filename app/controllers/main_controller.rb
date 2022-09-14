@@ -88,6 +88,28 @@ class MainController < ApplicationController
 
   def test4
     @allSubjects = Subject.all
+    @total = 0
+   @x = 0 
+   @max = @allSubjects[0].score.to_i
+   @max_sub=@allSubjects[0].name
+   
+   while @x < @allSubjects.length
+    @total=@total+@allSubjects[@x].score.to_i  
+    @x+=1  
+    
+   end
+   @y=1
+   while @y < @allSubjects.length
+    
+    
+    if(@max<@allSubjects[@y].score.to_i)
+      @max=@allSubjects[@y].score.to_i
+      @max_sub=@allSubjects[@y].name
+    end
+    @y+=1
+    
+    
+   end
   end
 
   def delete
